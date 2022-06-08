@@ -121,7 +121,7 @@ cudnn.benchmark = True
 
 compute_time_list = []
 data_time_list = []
-
+count_var = 0
 
 class HybridTrainPipe(Pipeline):
     def __init__(self, batch_size, num_threads, device_id, data_dir, crop, dali_cpu=False):
@@ -442,6 +442,7 @@ def main():
 
 
 def train(train_loader, model, criterion, optimizer, epoch):
+    global count_var
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
@@ -493,16 +494,16 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
         # compute output
         output = None
-        with open('model_output.txt', 'w') as f:
+        with open(f'/home/app/out/model_output-{count_var}.txt', 'w') as f:
             with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
                 with record_function("model_inference"):
                     model_run_start = time.time()
                     output = model(input_var)
-                    model_run_end = moel_run_start - time.time()
+                    model_run_end = model_run_start - time.time()
                     sys.stdout = f
                     print(f"expected time: {model_run_end}")
-            print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
-            prof.export_chrome_trace("trace.json")
+            print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=50))
+            prof.export_chrome_trace(f"/home/app/out/trace-{count_var}.json")
         sys.stdout = original_stdout
         
 
