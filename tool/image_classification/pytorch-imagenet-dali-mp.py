@@ -15,6 +15,7 @@ import torch.optim
 import torch.utils.data
 import torch.utils.data.distributed
 import torchvision.models as models
+from torch.profiler import profile, record_function, ProfilerActivity
 
 sys.path.append(os.path.abspath(os.getcwd()))
 from profiler_utils import DataStallProfiler
@@ -488,8 +489,24 @@ def train(train_loader, model, criterion, optimizer, epoch):
             args.dprof.start_compute_tick()
         #-----------------------------------------------# 
 
+        original_stdout = sys.stdout
+
         # compute output
-        output = model(input_var)
+        output = None
+        with open('model_output.txt', 'w') as f:
+            with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
+                with record_function("model_inference"):
+                    model_run_start = time.time()
+                    output = model(input_var)
+                    model_run_end = moel_run_start - time.time()
+                    sys.stdout = f
+                    print(f"expected time: {model_run_end}")
+            print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
+            prof.export_chrome_trace("trace.json")
+        sys.stdout = original_stdout
+        
+
+
         loss = criterion(output, target_var)
 
         # measure accuracy and record loss

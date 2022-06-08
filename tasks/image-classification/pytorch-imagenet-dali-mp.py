@@ -453,8 +453,24 @@ def train(train_loader, model, criterion, optimizer, epoch):
         input_var = Variable(input)
         target_var = Variable(target)
 
+        original_stdout = sys.stdout
+
         # compute output
-        output = model(input_var)
+        output = None
+        with open('/home/app/out/model_output.txt', 'w') as f:
+            with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
+                with record_function("model_inference"):
+                    model_run_start = time.time()
+                    output = model(input_var)
+                    model_run_end = moel_run_start - time.time()
+                    sys.stdout = f
+                    print(f"expected time: {model_run_end}")
+            print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
+
+        sys.stdout = original_stdout
+        
+        prof.export_chrome_trace("/home/app/out/trace.json")
+
         loss = criterion(output, target_var)
 
         # measure accuracy and record loss
