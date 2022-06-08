@@ -500,9 +500,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
                 with record_function("model_inference"):
                     model_run_start = time.time()
                     output = model(input_var)
-                    model_run_end = time.time() - model_run_end
+                    model_run_end = time.time() - model_run_start
                     sys.stdout = f
-            print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=50))
+            print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=500))
             print(f"expected time: {model_run_end}")
 
             prof.export_chrome_trace(f"/home/app/out/trace-{count_var}.json")
