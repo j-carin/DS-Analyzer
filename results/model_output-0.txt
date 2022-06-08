@@ -1,0 +1,58 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                        model_inference         0.07%       2.502ms        99.82%        3.457s        3.457s       0.000us         0.00%        1.419s        1.419s             1  
+                                           aten::conv2d         0.00%      63.000us        99.56%        3.448s     689.575ms       0.000us         0.00%        1.401s     280.262ms             5  
+                                      aten::convolution         0.00%     143.000us        99.55%        3.448s     689.563ms       0.000us         0.00%        1.401s     280.262ms             5  
+                                     aten::_convolution         0.01%     213.000us        99.55%        3.448s     689.534ms       0.000us         0.00%        1.401s     280.262ms             5  
+                                aten::cudnn_convolution        67.66%        2.343s        99.53%        3.447s     689.418ms        1.395s        98.34%        1.395s     279.009ms             5  
+void implicit_convolve_sgemm<__half, __half, 128, 6,...         0.00%       0.000us         0.00%       0.000us       0.000us     383.746ms        27.05%     383.746ms      47.968ms             8  
+void explicit_convolve_sgemm<__half, int, 128, 6, 7,...         0.00%       0.000us         0.00%       0.000us       0.000us     204.841ms        14.44%     204.841ms      51.210ms             4  
+void implicit_convolve_sgemm<__half, __half, 1024, 5...         0.00%       0.000us         0.00%       0.000us       0.000us     133.025ms         9.38%     133.025ms      66.513ms             2  
+         volta_fp16_scudnn_fp16_128x32_relu_small_nn_v1         0.00%       0.000us         0.00%       0.000us       0.000us     115.607ms         8.15%     115.607ms      28.902ms             4  
+                                  volta_gcgemm_64x32_nt         0.00%       0.000us         0.00%       0.000us       0.000us     107.800ms         7.60%     107.800ms      26.950ms             4  
+volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148...         0.00%       0.000us         0.00%       0.000us       0.000us      71.266ms         5.02%      71.266ms      23.755ms             3  
+                                  volta_sgemm_128x64_nn         0.00%       0.000us         0.00%       0.000us       0.000us      64.152ms         4.52%      64.152ms       8.019ms             8  
+volta_fp16_scudnn_fp16_128x64_relu_xregs_large_nn_v1...         0.00%       0.000us         0.00%       0.000us       0.000us      41.345ms         2.91%      41.345ms      20.672ms             2  
+                                  volta_gcgemm_64x32_tn         0.00%       0.000us         0.00%       0.000us       0.000us      35.484ms         2.50%      35.484ms       8.871ms             4  
+void explicit_convolve_sgemm<__half, int, 1024, 5, 5...         0.00%       0.000us         0.00%       0.000us       0.000us      29.537ms         2.08%      29.537ms      29.537ms             1  
+void cudnn::cnn::im2col4d_kernel<__half, long>(cudnn...         0.00%       0.000us         0.00%       0.000us       0.000us      28.152ms         1.98%      28.152ms       5.630ms             5  
+sm75_xmma_fprop_implicit_gemm_indexed_wo_smem_f16f16...         0.00%       0.000us         0.00%       0.000us       0.000us      27.222ms         1.92%      27.222ms      27.222ms             1  
+turing_fp16_s1688cudnn_fp16_256x128_ldg8_relu_f2f_ex...         0.00%       0.000us         0.00%       0.000us       0.000us      22.256ms         1.57%      22.256ms       3.709ms             6  
+void cudnn::ops::nchwToNhwcKernel<__half, __half, fl...         0.00%       0.000us         0.00%       0.000us       0.000us      17.462ms         1.23%      17.462ms     970.111us            18  
+turing_fp16_s1688cudnn_fp16_256x64_sliced1x2_ldg8_re...         0.00%       0.000us         0.00%       0.000us       0.000us      15.447ms         1.09%      15.447ms       7.723ms             2  
+void cudnn::winograd_nonfused::winogradForwardData4x...         0.00%       0.000us         0.00%       0.000us       0.000us      12.404ms         0.87%      12.404ms       2.067ms             6  
+void fft2d_c2r_32x32<__half, false, false, 1u, false...         0.00%       0.000us         0.00%       0.000us       0.000us      12.115ms         0.85%      12.115ms       4.038ms             3  
+void fft2d_r2c_32x32<__half, false, 1u, false>(float...         0.00%       0.000us         0.00%       0.000us       0.000us      11.836ms         0.83%      11.836ms       3.945ms             3  
+void cudnn::winograd_nonfused::winogradForwardOutput...         0.00%       0.000us         0.00%       0.000us       0.000us      11.547ms         0.81%      11.547ms       1.925ms             6  
+void cudnn::ops::nhwcToNchwKernel<__half, __half, fl...         0.00%       0.000us         0.00%       0.000us       0.000us       8.698ms         0.61%       8.698ms     966.444us             9  
+void cudnn::winograd_nonfused::winogradForwardOutput...         0.00%       0.000us         0.00%       0.000us       0.000us       8.646ms         0.61%       8.646ms       4.323ms             2  
+void fft2d_c2r_32x32<__half, false, false, 0u, false...         0.00%       0.000us         0.00%       0.000us       0.000us       7.362ms         0.52%       7.362ms       3.681ms             2  
+                                             aten::add_         0.01%     211.000us         0.01%     282.000us      56.400us       6.262ms         0.44%       6.262ms       1.252ms             5  
+void at::native::elementwise_kernel<128, 4, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us       6.262ms         0.44%       6.262ms       1.252ms             5  
+void fft2d_r2c_32x32<__half, false, 1u, true>(float2...         0.00%       0.000us         0.00%       0.000us       0.000us       5.269ms         0.37%       5.269ms       1.756ms             3  
+                                       aten::max_pool2d         0.00%      27.000us         0.01%     205.000us      68.333us       0.000us         0.00%       4.658ms       1.553ms             3  
+                          aten::max_pool2d_with_indices         0.00%     140.000us         0.01%     178.000us      59.333us       4.658ms         0.33%       4.658ms       1.553ms             3  
+void at::native::(anonymous namespace)::max_pool_for...         0.00%       0.000us         0.00%       0.000us       0.000us       4.658ms         0.33%       4.658ms       1.553ms             3  
+void fft2d_r2c_16x16<__half>(float2*, __half const*,...         0.00%       0.000us         0.00%       0.000us       0.000us       4.552ms         0.32%       4.552ms     758.667us             6  
+                                               aten::to         0.00%      51.000us         0.08%       2.886ms     169.765us       0.000us         0.00%       4.353ms     256.059us            17  
+                                         aten::_to_copy         0.01%     199.000us         0.08%       2.835ms     166.765us       0.000us         0.00%       4.353ms     256.059us            17  
+                                            aten::copy_         0.01%     225.000us         0.02%     532.000us      31.294us       4.353ms         0.31%       4.353ms     256.059us            17  
+void at::native::unrolled_elementwise_kernel<at::nat...         0.00%       0.000us         0.00%       0.000us       0.000us       4.353ms         0.31%       4.353ms     256.059us            17  
+                                            aten::relu_         0.01%     178.000us         0.01%     438.000us      62.571us       0.000us         0.00%       4.172ms     596.000us             7  
+                                       aten::clamp_min_         0.00%      26.000us         0.01%     260.000us      37.143us       0.000us         0.00%       4.172ms     596.000us             7  
+                                        aten::clamp_min         0.00%     150.000us         0.01%     234.000us      33.429us       4.172ms         0.29%       4.172ms     596.000us             7  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us       4.172ms         0.29%       4.172ms     596.000us             7  
+void fft2d_c2r_16x16<__half, false>(__half*, float2*...         0.00%       0.000us         0.00%       0.000us       0.000us       3.708ms         0.26%       3.708ms       1.236ms             3  
+void cudnn::winograd_nonfused::winogradForwardData9x...         0.00%       0.000us         0.00%       0.000us       0.000us       3.313ms         0.23%       3.313ms       1.657ms             2  
+void fft2d_r2c_32x32<__half, false, 0u, false>(float...         0.00%       0.000us         0.00%       0.000us       0.000us       2.524ms         0.18%       2.524ms       1.262ms             2  
+void cudnn::ops::convertTensor_kernel<__half, float,...         0.00%       0.000us         0.00%       0.000us       0.000us       2.089ms         0.15%       2.089ms     348.167us             6  
+                                           aten::linear         0.00%      35.000us         0.08%       2.740ms     913.333us       0.000us         0.00%       2.043ms     681.000us             3  
+                                            aten::addmm         0.01%     519.000us         0.08%       2.654ms     884.667us       2.043ms         0.14%       2.043ms     681.000us             3  
+                              aten::adaptive_avg_pool2d         0.00%      16.000us         0.00%      98.000us      98.000us       0.000us         0.00%       1.972ms       1.972ms             1  
+                             aten::_adaptive_avg_pool2d         0.00%      54.000us         0.00%      82.000us      82.000us       1.972ms         0.14%       1.972ms       1.972ms             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 3.463s
+Self CUDA time total: 1.419s
+
+expected time: 1654661703.974802
