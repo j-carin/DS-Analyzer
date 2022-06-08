@@ -496,7 +496,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
         model_run_end = 0
         output = None
         with open(f'/home/app/out/model_output-{count_var}.txt', 'w') as f:
-            with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
+            with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], with_stack=True, record_shapes=True) as prof:
                 with record_function("model_inference"):
                     model_run_start = time.time()
                     output = model(input_var)
@@ -506,6 +506,8 @@ def train(train_loader, model, criterion, optimizer, epoch):
             print(f"expected time: {model_run_end}")
 
             prof.export_chrome_trace(f"/home/app/out/trace-{count_var}.json")
+            prof.export_stacks(f"/home/app/out/profiler_stacks-{count_var}.txt", "self_cuda_time_total")
+
         sys.stdout = original_stdout
         
 
